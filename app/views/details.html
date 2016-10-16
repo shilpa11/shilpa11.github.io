@@ -1,0 +1,21 @@
+<div class="col-md-12">
+    <div>
+
+        <div ng-repeat="(key, value) in week_data" style="border:solid 1px #efefef; margin-bottom: 10px; ">
+            <h1 style="margin: 0px; padding: 0px; background: #efefef; padding: 10px;"> {{ key }} </h1>
+            <div style="padding: 10px;">
+                <h3 ng-if="value.name" style="margin: 0px; padding: 0px;"> {{value.name}}</h3>
+                <span ng-if="value.rating">Rating: {{value.rating}}</span></br>
+                <span ng-if="value.formatted_address">{{value.formatted_address}}</span>
+                <span ng-if="!value.name">No Restaurant selected for this day</span>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!--<pre>{{details | json}}</pre>-->
+    <br/>
+    <a href="#main"> Back to Search </a>
+
+</div>

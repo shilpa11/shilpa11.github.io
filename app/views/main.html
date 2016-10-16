@@ -1,0 +1,62 @@
+<div class="load-overlay" ng-if="showLoader">
+    <img src="images/icon-load.gif" width="100" />
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Search Location</h1>
+
+            <form class="form">
+                <input class="form-control" type="text" google-place ng-model="venue.address_line_1" aria-label="search">
+            </form>
+
+            <br/>
+
+            <div class="row" ng-if="showbutton ==  true">
+                <div class="col-xs-12 col-md-6">
+                    <button class="btn btn-success" ng-click="showweekdata()">Display Plan</button>
+                </div>
+            </div>
+            <div ng-if="weekdetails" class="slideDown">
+
+                <div ng-repeat="(key, value) in week_data" class="day-box" style="border:solid 1px #efefef; margin-bottom: 10px; ">
+                    <h1 style="font-size: 17px; margin: 0px; padding: 0px; background: #efefef; padding: 10px;"> {{ key }} </h1>
+                    <div style="padding: 10px;">
+                        <h3 ng-if="value.name" style="font-size: 13px;margin: 0px; padding: 0px;"> {{value.name}}</h3>
+                        <span ng-if="value.rating" style="margin-top: 8px;display: block;font-size: 12px;">Rating: {{value.rating}}</span></br>
+                        <span ng-if="value.formatted_address" style="margin-top: -15px;display: block;font-size: 12px;">{{value.formatted_address}}</span>
+                        <span ng-if="!value.name" style="display: block;font-size: 12px;">No Restaurant selected for this day</span>
+                    </div>
+                </div>
+            </div>
+            <br/> {{selected_weeks}}
+            <div id="products" class="row list-group">
+
+                <div class="item  col-xs-6 col-lg-3" data-ng-repeat="item in places">
+                    <div class="thumbnail" style="height: 372px;">
+                        <img class="group list-group-image" ng-src="{{item.icon}}" alt="" />
+                        <div class="caption">
+                            <h4 class="group inner list-group-item-heading">
+                                {{item.name}}</h4>
+                            <h5> Rating: {{item.rating}} </h5>
+                            <p ng-if="item.opening_hours">
+                                <span ng-if="item.opening_hours.open_now" style="color: green;"> Opened </span>
+                                <span ng-if="!item.opening_hours.open_now" style="color: red;"> Closed </span>
+                            </p>
+
+                            <div ng-if="item.opening_hours">
+                                <div ng-repeat="(key, value) in item.opening_hours.weekday_text">
+                                    <input type="checkbox" value="{{key}}" ng-model="selected_weeks" ng-click="onSetWeek(key, item);" />
+                                    <span style="font-size: 10px;">{{key}} - {{ value }} </span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
